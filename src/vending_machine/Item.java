@@ -4,15 +4,23 @@ import java.text.NumberFormat;
 
 /**
  * @author Michael Flasco
- * 
+ * @date 12/19/2020
  */
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
+// Item class Created
 public class Item {
+
+	// Format number as currency
 	NumberFormat formatter = NumberFormat.getCurrencyInstance();
-//	HashMap<Integer, Item> menu = new HashMap<Integer, Item>();
+
+	// HashMap<Integer, Item> menu = new HashMap<Integer, Item>();
+
+	/**
+	 * ArrayList created for menu items in vending machine
+	 */
 	ArrayList<Item> menu = new ArrayList<Item>();
 
 	String name;
@@ -20,6 +28,9 @@ public class Item {
 	double price;
 	String id;
 
+	/**
+	 * Default constructor to create loaded items in machine
+	 */
 	public Item() {
 		menu.add(new Item("Snickers", 10, 1.50, "1"));
 		menu.add(new Item("Chips", 10, .50, "2"));
@@ -27,6 +38,14 @@ public class Item {
 
 	}
 
+	/**
+	 * Constructor to add new items in to vending machine
+	 * 
+	 * @param name
+	 * @param quantity
+	 * @param price
+	 * @param id
+	 */
 	public Item(String name, int quantity, double price, String id) {
 		this.name = name;
 		this.quantity = quantity;
@@ -58,7 +77,6 @@ public class Item {
 	public void setPrice(double price) {
 		this.price = price;
 	}
-	
 
 	public String getId() {
 		return id;
@@ -72,8 +90,5 @@ public class Item {
 	public String toString() {
 		return name + ", " + "Price: " + formatter.format(price) + ", Number: " + id;
 	}
-
-	
-	
 
 }
