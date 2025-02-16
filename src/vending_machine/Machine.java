@@ -34,6 +34,7 @@ public class Machine {
 		input = new Scanner(System.in);
 		item = new Item();
 		boolean run = true;
+		Boolean menu = false;
 		while (run) {
 			displayMenu();
 		}
@@ -44,39 +45,47 @@ public class Machine {
 	 * 
 	 * @return amount of money
 	 */
-	public static double displayMenu() {
+	
+	public static double insertMoney() {
+		if (money != 0) {
+
+			System.out.println("\n====== Vending Machine Menu =======");
+			int i;
+
+			// Loop through items in vending machine
+			for (i = 0; i < item.menu.size(); i++) {
+				System.out.println(item.menu.get(i));
+			}
+			System.out.println("\nAmount: " + formatter.format(money));
+			
+
+		} else {
+
+			// If there no money has been added menu repeats
+			System.out.println("====== Vending Machine =======");
+			System.out.println("\nPlease insert cash or change:");
+			money = input.nextDouble();
+			String test = String.valueOf(money);
+
+		}
+		return money;
+	}
+	
+	public static void displayMenu() {
 
 		boolean menu = true;
 		while (menu) {
+			insertMoney();
 
+			
 			// Determine if user has added money to machine
-			if (money != 0) {
-
-				System.out.println("\n====== Vending Machine Menu =======");
-				int i;
-
-				// Loop through items in vending machine
-				for (i = 0; i < item.menu.size(); i++) {
-					System.out.println(item.menu.get(i));
-				}
-				System.out.println("\nAmount: " + formatter.format(money));
-				menu = false;
-
-			} else {
-
-				// If there no money has been added menu repeats
-				System.out.println("====== Vending Machine =======");
-				System.out.println("\nPlease insert cash or change:");
-				money = input.nextDouble();
-				String test = String.valueOf(money);
-
-			}
+			
 
 			// After money has been added prompt user to make a selection
 			userChoice();
 		}
 
-		return money;
+		
 
 	}
 
@@ -104,7 +113,16 @@ public class Machine {
 				// Make separate function
 				if (confirm.equals("y")) {
 					purchase = new Purchase(selectedItem.name, selectedItem.getPrice());
+					
+					if (money < purchase.getItemPrice()) {
+						System.out.println("You do not have enough. Please insert money");
+						insertMoney();
+					} else {
+					
 					System.out.println("Vending: " + purchase.getItemName() + " " + purchase.getItemPrice());
+					money = money - purchase.getItemPrice();
+					}
+				
 				} else {
 					System.out.println("Transaction Cancelled");
 				}
